@@ -16,7 +16,7 @@ class DefaultOrderService(
     private val outputPort: OrderOutputPort,
 ) : OrderService {
     companion object {
-        const val FILE_PATH = "src/main/resources/orders.json"
+        const val FILE_PATH = "src/main/resources/input/orders.json"
     }
 
     override suspend fun processOrders() {

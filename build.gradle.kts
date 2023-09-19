@@ -29,6 +29,10 @@ dependencies {
 
     // DI
     implementation("io.insert-koin:koin-core:${property("koinVersion")}")
+
+    // Logging
+    implementation("org.slf4j:slf4j-api:${property("slf4jVersion")}")
+    implementation("ch.qos.logback:logback-classic:${property("logbackVersion")}")
 }
 
 val compileKotlin: KotlinCompile by tasks
