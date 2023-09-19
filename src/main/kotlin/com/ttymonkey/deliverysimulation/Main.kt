@@ -1,19 +1,40 @@
 package com.ttymonkey.deliverysimulation
 
+import com.ttymonkey.deliverysimulation.infrastructure.appModule
+import com.ttymonkey.deliverysimulation.services.statistics.StatisticsService
 import com.ttymonkey.deliverysimulation.verticles.DeliveryVerticle
 import com.ttymonkey.deliverysimulation.verticles.KitchenVerticle
-import com.ttymonkey.deliverysimulation.verticles.OrdersVerticle
+import com.ttymonkey.deliverysimulation.verticles.OrderVerticle
 import io.vertx.core.Vertx
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.core.context.startKoin
 
-fun main() {
-    val vertx = Vertx.vertx()
+class Main : KoinComponent {
+    private val vertx: Vertx by inject()
+    private val orderVerticle: OrderVerticle by inject()
+    private val kitchenVerticle: KitchenVerticle by inject()
+    private val deliveryVerticle: DeliveryVerticle by inject()
+    private val statisticsService: StatisticsService by inject()
 
-    val statistics = Statistics(0, 0, 0)
-    vertx.deployVerticle(KitchenVerticle(statistics))
-    vertx.deployVerticle(DeliveryVerticle())
-    vertx.deployVerticle(OrdersVerticle())
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            Main().run()
+        }
+    }
 
-    vertx.setTimer(5 * 60 * 1000) {
-        statistics.printStatistics()
+    fun run() {
+        startKoin {
+            modules(appModule)
+        }
+
+        vertx.deployVerticle(kitchenVerticle)
+        vertx.deployVerticle(deliveryVerticle)
+        vertx.deployVerticle(orderVerticle)
+
+        vertx.setTimer(5 * 60 * 1000) {
+            statisticsService.printStatistics()
+        }
     }
 }

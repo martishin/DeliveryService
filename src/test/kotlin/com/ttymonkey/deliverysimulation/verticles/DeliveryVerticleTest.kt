@@ -2,7 +2,10 @@ package com.ttymonkey.deliverysimulation.verticles
 
 import com.ttymonkey.deliverysimulation.EventBusAddresses
 import com.ttymonkey.deliverysimulation.models.domain.Order
+import com.ttymonkey.deliverysimulation.ports.delivery.DeliveryInputPort
 import io.mockk.*
+import io.vertx.core.Context
+import io.vertx.core.Handler
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 import io.vertx.junit5.VertxExtension
@@ -20,14 +23,20 @@ class DeliveryVerticleTest {
 
     private lateinit var deliveryVerticle: DeliveryVerticle
     private lateinit var vertx: Vertx
+    private lateinit var deliveryInputPort: DeliveryInputPort
 
     @BeforeEach
     fun setUp() {
         vertx = Vertx.vertx()
-        deliveryVerticle = spyk(DeliveryVerticle()) {
-            every { handleNewOrder(any()) } just Runs
+        deliveryInputPort = mockk(relaxed = true)
+        val contextMock = mockk<Context>(relaxed = true)
+        every { contextMock.runOnContext(any()) } answers {
+            val handler = firstArg<Handler<Void>>()
+            handler.handle(null)
         }
-        deliveryVerticle.init(vertx, mockk())
+
+        deliveryVerticle = DeliveryVerticle(deliveryInputPort)
+        deliveryVerticle.init(vertx, contextMock)
     }
 
     @Test
@@ -43,8 +52,8 @@ class DeliveryVerticleTest {
             // Use a delay to wait for the asynchronous processing
             delay(1000)
 
-            verify(exactly = 1) {
-                deliveryVerticle.handleNewOrder(order)
+            coVerify(exactly = 1) {
+                deliveryInputPort.handleNewOrder(order)
             }
 
             testContext.completeNow()

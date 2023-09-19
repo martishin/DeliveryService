@@ -26,6 +26,9 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:${property("junitJupiterVersion")}")
     testImplementation("org.assertj:assertj-core:${property("assertJVersion")}")
     testImplementation("io.mockk:mockk:${property("mockkVersion")}")
+
+    // DI
+    implementation("io.insert-koin:koin-core:${property("koinVersion")}")
 }
 
 val compileKotlin: KotlinCompile by tasks
@@ -36,7 +39,7 @@ tasks.withType<Test> {
 }
 
 application {
-    mainClass.set("com.ttymonkey.deliverysimulation.MainKt")
+    mainClass.set("com.ttymonkey.deliverysimulation.Main")
 }
 
 tasks.shadowJar {
@@ -44,7 +47,7 @@ tasks.shadowJar {
     archiveVersion.set("1.0.0")
     archiveClassifier.set("")
     manifest {
-        attributes["Main-Class"] = "com.ttymonkey.deliverysimulation.MainKt"
+        attributes["Main-Class"] = "com.ttymonkey.deliverysimulation.Main"
     }
     mergeServiceFiles()
 }

@@ -1,14 +1,13 @@
 package com.ttymonkey.deliverysimulation.verticles
 
 import com.ttymonkey.deliverysimulation.EventBusAddresses
-import com.ttymonkey.deliverysimulation.Statistics
 import com.ttymonkey.deliverysimulation.models.domain.Order
-import io.mockk.Runs
+import com.ttymonkey.deliverysimulation.ports.kitchen.KitchenInputPort
+import io.mockk.coVerify
 import io.mockk.every
-import io.mockk.just
 import io.mockk.mockk
-import io.mockk.spyk
-import io.mockk.verify
+import io.vertx.core.Context
+import io.vertx.core.Handler
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 import io.vertx.junit5.VertxExtension
@@ -27,16 +26,20 @@ class KitchenVerticleTest {
 
     private lateinit var kitchenVerticle: KitchenVerticle
     private lateinit var vertx: Vertx
-    private lateinit var statistics: Statistics
+    private lateinit var kitchenInputPort: KitchenInputPort
 
     @BeforeEach
     fun setUp() {
         vertx = Vertx.vertx()
-        statistics = mockk(relaxed = true)
-        kitchenVerticle = spyk(KitchenVerticle(statistics)) {
-            every { handleNewOrder(any()) } just Runs
+        kitchenInputPort = mockk(relaxed = true)
+        val contextMock = mockk<Context>(relaxed = true)
+        every { contextMock.runOnContext(any()) } answers {
+            val handler = firstArg<Handler<Void>>()
+            handler.handle(null)
         }
-        kitchenVerticle.init(vertx, mockk())
+
+        kitchenVerticle = KitchenVerticle(kitchenInputPort)
+        kitchenVerticle.init(vertx, contextMock)
     }
 
     @Test
@@ -52,8 +55,8 @@ class KitchenVerticleTest {
             // Use a delay to wait for the asynchronous processing
             delay(1000)
 
-            verify(exactly = 1) {
-                kitchenVerticle.handleNewOrder(order)
+            coVerify(exactly = 1) {
+                kitchenInputPort.handleNewOrder(order)
             }
 
             testContext.completeNow()
