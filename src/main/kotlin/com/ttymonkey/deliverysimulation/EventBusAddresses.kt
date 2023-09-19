@@ -1,4 +1,4 @@
-package com.ttymonkey.deliverysimulation.models
+package com.ttymonkey.deliverysimulation
 
 object EventBusAddresses {
     const val NEW_ORDER = "new_order"

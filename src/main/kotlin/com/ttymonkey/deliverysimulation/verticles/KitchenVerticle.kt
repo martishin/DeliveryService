@@ -1,7 +1,7 @@
 package com.ttymonkey.deliverysimulation.verticles
 
+import com.ttymonkey.deliverysimulation.EventBusAddresses
 import com.ttymonkey.deliverysimulation.Statistics
-import com.ttymonkey.deliverysimulation.models.EventBusAddresses
 import com.ttymonkey.deliverysimulation.models.domain.Courier
 import com.ttymonkey.deliverysimulation.models.domain.Order
 import io.vertx.core.json.JsonObject

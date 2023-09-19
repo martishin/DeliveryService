@@ -2,7 +2,7 @@ package com.ttymonkey.deliverysimulation.verticles
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.ttymonkey.deliverysimulation.models.EventBusAddresses
+import com.ttymonkey.deliverysimulation.EventBusAddresses
 import com.ttymonkey.deliverysimulation.models.domain.Order
 import com.ttymonkey.deliverysimulation.models.dto.OrderDto
 import io.vertx.core.json.JsonObject

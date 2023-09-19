@@ -1,6 +1,6 @@
 package com.ttymonkey.deliverysimulation.verticles
 
-import com.ttymonkey.deliverysimulation.models.EventBusAddresses
+import com.ttymonkey.deliverysimulation.EventBusAddresses
 import com.ttymonkey.deliverysimulation.models.domain.Order
 import io.mockk.*
 import io.vertx.core.Vertx
