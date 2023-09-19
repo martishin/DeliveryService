@@ -4,7 +4,7 @@ CLI tool used for simulating delivery service strategies, built using:
 * Koin - dependency injection 
 * JUnit 5, mockk, assertj - testing
 * Jackson - JSON processing
-* Docker - packaging
+* Docker - containerization
 
 This project utilizes Hexagonal Architecture (Ports and Adapters).
 
