@@ -6,7 +6,7 @@ CLI tool used for simulating delivery service strategies, built using:
 * Jackson - JSON processing
 * Docker - containerization
 
-This project utilizes Hexagonal Architecture (Ports and Adapters).
+This project utilizes Hexagonal Architecture (Ports and Adapters) and has 80+% test coverage.
 
 To run the project:  
 `./gradlew run`
