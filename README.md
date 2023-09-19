@@ -1,4 +1,4 @@
-CLI tool used for simulating delivery service strategies, built using:
+CLI tool used to model delivery service operations, built using:
 * Kotlin + coroutines
 * Vert.x - toolkit for building reactive applications
 * Koin - dependency injection 
