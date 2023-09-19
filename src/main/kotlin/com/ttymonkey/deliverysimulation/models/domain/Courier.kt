@@ -1,10 +1,13 @@
 package com.ttymonkey.deliverysimulation.models.domain
 
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-
-data class Courier @JsonCreator constructor(
-    @JsonProperty("orderId") val orderId: String? = null,
-    @JsonProperty("dispatchTime") val dispatchTime: Long,
-    @JsonProperty("arrivalTime") val arrivalTime: Long
-)
+data class Courier(
+    val orderId: String? = null,
+    val dispatchTime: Long,
+    val arrivalTime: Long,
+) {
+    init {
+        require(dispatchTime < arrivalTime) {
+            "Dispatch time ($dispatchTime) must be less than arrival time ($arrivalTime)"
+        }
+    }
+}

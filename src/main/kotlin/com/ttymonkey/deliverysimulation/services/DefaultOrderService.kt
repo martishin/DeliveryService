@@ -3,7 +3,7 @@ package com.ttymonkey.deliverysimulation.services
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.ttymonkey.deliverysimulation.models.domain.Order
-import com.ttymonkey.deliverysimulation.models.dto.OrderDto
+import com.ttymonkey.deliverysimulation.models.dto.NewOrderDto
 import com.ttymonkey.deliverysimulation.ports.order.OrderInputPort
 import com.ttymonkey.deliverysimulation.ports.order.OrderOutputPort
 import io.vertx.core.Vertx
@@ -33,10 +33,10 @@ class DefaultOrderService(
         }
     }
 
-    private fun readOrders(): Flow<OrderDto> = flow {
+    private fun readOrders(): Flow<NewOrderDto> = flow {
         val objectMapper = jacksonObjectMapper()
         val fileContent = vertx.fileSystem().readFile(FILE_PATH).await().toString(Charsets.UTF_8)
-        val orders: List<OrderDto> = objectMapper.readValue(fileContent)
+        val orders: List<NewOrderDto> = objectMapper.readValue(fileContent)
         for (order in orders) {
             emit(order)
         }

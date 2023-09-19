@@ -16,8 +16,8 @@ class DefaultKitchenService(
         private val log = LoggerFactory.getLogger(DefaultKitchenService::class.java)
     }
 
-    private val readyOrders = mutableListOf<Order>()
-    private val waitingCouriers = mutableListOf<Courier>()
+    internal val readyOrders = mutableListOf<Order>()
+    internal val waitingCouriers = mutableListOf<Courier>()
 
     override suspend fun handleNewOrder(order: Order) {
         log.info("Received order: $order")

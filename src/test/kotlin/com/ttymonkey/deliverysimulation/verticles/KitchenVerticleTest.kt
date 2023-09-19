@@ -2,6 +2,7 @@ package com.ttymonkey.deliverysimulation.verticles
 
 import com.ttymonkey.deliverysimulation.EventBusAddresses
 import com.ttymonkey.deliverysimulation.models.domain.Order
+import com.ttymonkey.deliverysimulation.models.dto.OrderDto
 import com.ttymonkey.deliverysimulation.ports.kitchen.KitchenInputPort
 import io.mockk.coVerify
 import io.mockk.every
@@ -45,20 +46,22 @@ class KitchenVerticleTest {
     @Test
     fun `should handle new order when message is received on new_order address`(testContext: VertxTestContext) =
         runBlocking {
-            val order = Order(id = "1", name = "Burger", prepTime = 30, orderTime = 1624302745)
+            // given
+            val orderDto = OrderDto(id = "1", name = "Burger", prepTime = 30, orderTime = 1624302745)
 
+            // when
             launch(vertx.dispatcher()) {
                 kitchenVerticle.start()
-                vertx.eventBus().publish(EventBusAddresses.NEW_ORDER, JsonObject.mapFrom(order))
+                vertx.eventBus().publish(EventBusAddresses.NEW_ORDER, JsonObject.mapFrom(orderDto))
             }
 
-            // Use a delay to wait for the asynchronous processing
             delay(1000)
-
-            coVerify(exactly = 1) {
-                kitchenInputPort.handleNewOrder(order)
-            }
-
             testContext.completeNow()
+
+            // then
+            val expected = Order(id = "1", name = "Burger", prepTime = 30, orderTime = 1624302745)
+            coVerify(exactly = 1) {
+                kitchenInputPort.handleNewOrder(expected)
+            }
         }
 }

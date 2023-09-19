@@ -18,7 +18,7 @@ dependencies {
     implementation("io.vertx:vertx-web:${property("vertxVersion")}")
     implementation("io.vertx:vertx-lang-kotlin:${property("vertxVersion")}")
     implementation("io.vertx:vertx-lang-kotlin-coroutines:${property("vertxVersion")}")
-    testImplementation("io.vertx:vertx-junit5:4.2.1")
+    testImplementation("io.vertx:vertx-junit5:${property("vertxVersion")}")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${property("jacksonVersion")}")
 
@@ -26,6 +26,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:${property("junitJupiterVersion")}")
     testImplementation("org.assertj:assertj-core:${property("assertJVersion")}")
     testImplementation("io.mockk:mockk:${property("mockkVersion")}")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1")
 
     // DI
     implementation("io.insert-koin:koin-core:${property("koinVersion")}")

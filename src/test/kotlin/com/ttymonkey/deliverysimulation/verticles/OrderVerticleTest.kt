@@ -32,14 +32,16 @@ class OrderVerticleTest {
     @Test
     fun `should send new_order message when order is consumed`(testContext: VertxTestContext) =
         runBlocking {
+            // given / when
             launch(vertx.dispatcher()) {
                 orderVerticle.start()
             }
 
+            testContext.completeNow()
+
+            // then
             coVerify(exactly = 1) {
                 orderInputPort.processOrders()
             }
-
-            testContext.completeNow()
         }
 }
