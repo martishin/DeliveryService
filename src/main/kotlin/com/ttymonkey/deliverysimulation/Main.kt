@@ -9,6 +9,7 @@ import io.vertx.core.Vertx
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
+import org.slf4j.LoggerFactory
 
 class Main : KoinComponent {
     private val vertx: Vertx by inject()
@@ -18,6 +19,8 @@ class Main : KoinComponent {
     private val statisticsService: StatisticsService by inject()
 
     companion object {
+        private val log = LoggerFactory.getLogger(Main::class.java)
+
         @JvmStatic
         fun main(args: Array<String>) {
             Main().run()
@@ -34,7 +37,7 @@ class Main : KoinComponent {
         vertx.deployVerticle(orderVerticle)
 
         vertx.setTimer(2 * 60 * 1000) {
-            statisticsService.printStatistics()
+            log.info(statisticsService.getStatistics().toString())
         }
     }
 }

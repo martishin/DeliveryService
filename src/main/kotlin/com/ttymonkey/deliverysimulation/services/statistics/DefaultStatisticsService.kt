@@ -1,29 +1,25 @@
 package com.ttymonkey.deliverysimulation.services.statistics
 
-import org.slf4j.LoggerFactory
+import com.ttymonkey.deliverysimulation.models.domain.Statistics
+import java.util.concurrent.locks.ReentrantReadWriteLock
+import kotlin.concurrent.read
+import kotlin.concurrent.write
 
-class DefaultStatisticsService(
-    private var totalFoodWaitTime: Long,
-    private var totalCourierWaitTime: Long,
-    private var processedOrdersCount: Int,
-) : StatisticsService {
-    companion object {
-        private val log = LoggerFactory.getLogger(DefaultStatisticsService::class.java)
-    }
+class DefaultStatisticsService : StatisticsService {
+    private val lock = ReentrantReadWriteLock()
+    private var statistics = Statistics(0, 0, 0)
 
     override fun updateStatistics(foodWaitTime: Long, courierWaitTime: Long) {
-        this.totalFoodWaitTime += foodWaitTime
-        this.totalCourierWaitTime += courierWaitTime
-        this.processedOrdersCount++
+        lock.write {
+            statistics = Statistics(
+                statistics.totalFoodWaitTime + foodWaitTime,
+                statistics.totalCourierWaitTime + courierWaitTime,
+                statistics.processedOrdersCount + 1,
+            )
+        }
     }
 
-    override fun printStatistics() {
-        if (processedOrdersCount == 0) {
-            log.info("No orders processed yet")
-            return
-        }
-        val avgFoodWaitTime = totalFoodWaitTime / processedOrdersCount
-        val avgCourierWaitTime = totalCourierWaitTime / processedOrdersCount
-        log.info("Average Food Wait Time: $avgFoodWaitTime ms, Average Courier Wait Time: $avgCourierWaitTime ms")
+    override fun getStatistics(): Statistics {
+        return lock.read { statistics }
     }
 }

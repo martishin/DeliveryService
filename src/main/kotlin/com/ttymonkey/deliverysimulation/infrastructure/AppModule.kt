@@ -20,7 +20,7 @@ import org.koin.dsl.module
 
 val appModule = module {
     single { Vertx.vertx() }
-    single<StatisticsService> { DefaultStatisticsService(0, 0, 0) }
+    single<StatisticsService> { DefaultStatisticsService() }
     single { EventBusCommunicationService(get()) }
     single<OrderInputPort> { DefaultOrderService(get(), get()) }
     single<OrderOutputPort> { get<EventBusCommunicationService>() }
