@@ -13,15 +13,18 @@ repositories {
 }
 
 dependencies {
+    implementation("io.vertx:vertx-core:${property("vertxVersion")}")
+    implementation("io.vertx:vertx-web:${property("vertxVersion")}")
+    implementation("io.vertx:vertx-lang-kotlin:${property("vertxVersion")}")
+    implementation("io.vertx:vertx-lang-kotlin-coroutines:${property("vertxVersion")}")
+    testImplementation("io.vertx:vertx-junit5:4.2.1")
+
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${property("jacksonVersion")}")
+
+    // testing
     testImplementation("org.junit.jupiter:junit-jupiter:${property("junitJupiterVersion")}")
     testImplementation("org.assertj:assertj-core:${property("assertJVersion")}")
     testImplementation("io.mockk:mockk:${property("mockkVersion")}")
-    implementation("com.typesafe.akka:akka-actor-typed_2.13:${property("akkaVersion")}")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${property("coroutinesVersion")}")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${property("jacksonVersion")}")
-    implementation("com.typesafe.akka:akka-slf4j_2.13")
-    implementation("ch.qos.logback:logback-classic:${property("logbackVersion")}")
-    implementation("org.scala-lang:scala-library:${property("scalaVersion")}")
 }
 
 val compileKotlin: KotlinCompile by tasks

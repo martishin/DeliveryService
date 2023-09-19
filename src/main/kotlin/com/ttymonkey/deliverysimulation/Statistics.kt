@@ -3,9 +3,8 @@ package com.ttymonkey.deliverysimulation
 class Statistics(
     private var totalFoodWaitTime: Long,
     private var totalCourierWaitTime: Long,
-    private var processedOrdersCount: Int
+    private var processedOrdersCount: Int,
 ) {
-
     fun updateStatistics(foodWaitTime: Long, courierWaitTime: Long) {
         this.totalFoodWaitTime += foodWaitTime
         this.totalCourierWaitTime += courierWaitTime

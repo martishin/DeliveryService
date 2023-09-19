@@ -1,8 +1,11 @@
 package com.ttymonkey.deliverysimulation.models.domain
 
-data class Order(
-    val id: String,
-    val name: String,
-    val prepTime: Int,
-    val orderTime: Long
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+
+data class Order @JsonCreator constructor(
+    @JsonProperty("id") val id: String,
+    @JsonProperty("name") val name: String,
+    @JsonProperty("prepTime") val prepTime: Int,
+    @JsonProperty("orderTime") val orderTime: Long
 )
