@@ -1,5 +1,5 @@
 CLI tool used for simulating delivery service strategies, built using:
-* Kotlin with coroutines
+* Kotlin + coroutines
 * Vert.x - toolkit for building reactive applications
 * Koin - dependency injection 
 * JUnit 5, mockk, assertj - testing
