@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.8.0"
     application
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 group = "com.ttymonkey"
@@ -35,5 +36,15 @@ tasks.withType<Test> {
 }
 
 application {
-    mainClass.set("MainKt")
+    mainClass.set("com.ttymonkey.deliverysimulation.MainKt")
+}
+
+tasks.shadowJar {
+    archiveBaseName.set("delivery-simulation")
+    archiveVersion.set("1.0.0")
+    archiveClassifier.set("")
+    manifest {
+        attributes["Main-Class"] = "com.ttymonkey.deliverysimulation.MainKt"
+    }
+    mergeServiceFiles()
 }
