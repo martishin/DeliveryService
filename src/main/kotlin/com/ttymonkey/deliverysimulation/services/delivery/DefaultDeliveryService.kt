@@ -23,6 +23,6 @@ class DefaultDeliveryService(private val outputPort: DeliveryOutputPort) : Deliv
             dispatchTime = dispatchTime,
             arrivalTime = System.currentTimeMillis(),
         )
-        outputPort.publishCourierArrival(courier)
+        outputPort.notifyCourierArrived(courier)
     }
 }

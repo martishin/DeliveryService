@@ -7,7 +7,7 @@ import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 
 class EventBusOrderOutputAdapter(private val vertx: Vertx) : OrderOutputPort {
-    override fun publishOrder(order: Order) {
+    override fun notifyOrderCreated(order: Order) {
         vertx.eventBus().publish(EventBusAddresses.NEW_ORDER, JsonObject.mapFrom(order))
     }
 }

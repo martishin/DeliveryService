@@ -20,9 +20,9 @@ class DefaultKitchenService(
 
     override suspend fun handleNewOrder(order: Order) {
         log.info("Received order: $order")
-        outputPort.publishStartedPreparingOrder(order)
+        outputPort.notifyOrderStartedPreparing(order)
         delay(order.prepTime.toLong() * 1000)
-        outputPort.publishFinishedPreparingOrder(order)
+        outputPort.notifyOrderFinishedPreparing(order)
     }
 
     override fun handleCourierArrival(courier: Courier) {

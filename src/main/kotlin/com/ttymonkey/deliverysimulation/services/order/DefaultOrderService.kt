@@ -27,7 +27,7 @@ class DefaultOrderService(
                 prepTime = orderDto.prepTime,
                 orderTime = System.currentTimeMillis(),
             )
-            outputPort.publishOrder(order)
+            outputPort.notifyOrderCreated(order)
             delay(500L)
         }
     }

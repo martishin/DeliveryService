@@ -7,7 +7,7 @@ import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 
 class EventBusDeliveryOutputAdapter(private val vertx: Vertx) : DeliveryOutputPort {
-    override fun publishCourierArrival(courier: Courier) {
+    override fun notifyCourierArrived(courier: Courier) {
         vertx.eventBus().publish(EventBusAddresses.COURIER_ARRIVAL, JsonObject.mapFrom(courier))
     }
 }
