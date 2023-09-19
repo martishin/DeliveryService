@@ -33,7 +33,7 @@ class Main : KoinComponent {
         vertx.deployVerticle(deliveryVerticle)
         vertx.deployVerticle(orderVerticle)
 
-        vertx.setTimer(5 * 60 * 1000) {
+        vertx.setTimer(2 * 60 * 1000) {
             statisticsService.printStatistics()
         }
     }

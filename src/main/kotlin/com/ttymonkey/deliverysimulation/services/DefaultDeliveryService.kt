@@ -1,13 +1,14 @@
-package com.ttymonkey.deliverysimulation.services.delivery
+package com.ttymonkey.deliverysimulation.services
 
 import com.ttymonkey.deliverysimulation.models.domain.Courier
 import com.ttymonkey.deliverysimulation.models.domain.Order
+import com.ttymonkey.deliverysimulation.ports.delivery.DeliveryInputPort
 import com.ttymonkey.deliverysimulation.ports.delivery.DeliveryOutputPort
 import kotlinx.coroutines.delay
 import org.slf4j.LoggerFactory
 import kotlin.random.Random
 
-class DefaultDeliveryService(private val outputPort: DeliveryOutputPort) : DeliveryService {
+class DefaultDeliveryService(private val outputPort: DeliveryOutputPort) : DeliveryInputPort {
     companion object {
         private val log = LoggerFactory.getLogger(DefaultDeliveryService::class.java)
     }

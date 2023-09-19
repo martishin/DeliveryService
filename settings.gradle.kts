@@ -1,1 +1,1 @@
-rootProject.name = "vertxdeliverysimulation"
+rootProject.name = "delivery-simulation"
