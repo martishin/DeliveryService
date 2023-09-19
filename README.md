@@ -8,3 +8,5 @@ CLI tool used for simulating delivery service strategies, built using:
 
 To run the script use: 
 `./gradlew run`
+
+To build the image use: `make build`
