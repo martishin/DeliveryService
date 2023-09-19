@@ -6,7 +6,10 @@ CLI tool used for simulating delivery service strategies, built using:
 * Jackson - JSON processing
 * Docker - packaging
 
-To run the script use: 
+This project utilizes Hexagonal Architecture (Ports and Adapters).
+
+To run the project:  
 `./gradlew run`
 
-To build the image use: `make build`
+To build the image:  
+`make build`
