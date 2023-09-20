@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package com.ttymonkey.deliverysimulation.proto;
+
+option java_multiple_files = true;
+
+message Courier {
+  optional string orderId = 1;
+  int64 dispatchTime = 2;
+  int64 arrivalTime = 3;
+}

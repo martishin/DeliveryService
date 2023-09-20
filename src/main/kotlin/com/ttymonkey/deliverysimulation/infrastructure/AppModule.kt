@@ -1,5 +1,6 @@
 package com.ttymonkey.deliverysimulation.infrastructure
 
+import com.ttymonkey.deliverysimulation.ports.codecs.ProtoCodec
 import com.ttymonkey.deliverysimulation.ports.delivery.DeliveryInputPort
 import com.ttymonkey.deliverysimulation.ports.delivery.DeliveryOutputPort
 import com.ttymonkey.deliverysimulation.ports.kitchen.KitchenInputPort
@@ -17,6 +18,8 @@ import com.ttymonkey.deliverysimulation.verticles.KitchenVerticle
 import com.ttymonkey.deliverysimulation.verticles.OrderVerticle
 import io.vertx.core.Vertx
 import org.koin.dsl.module
+import com.ttymonkey.deliverysimulation.proto.Courier as CourierProto
+import com.ttymonkey.deliverysimulation.proto.Order as OrderProto
 
 val appModule = module {
     single { Vertx.vertx() }
@@ -31,4 +34,16 @@ val appModule = module {
     single<DeliveryInputPort> { DefaultDeliveryService(get()) }
     single<DeliveryOutputPort> { get<EventBusCommunicationService>() }
     single { DeliveryVerticle(get()) }
+
+    factory {
+        val codecList = listOf(
+            ProtoCodec(OrderProto.getDefaultInstance()),
+            ProtoCodec(CourierProto.getDefaultInstance()),
+        )
+
+        val vertx = get<Vertx>()
+        codecList.forEach { codec ->
+            vertx.eventBus().registerCodec(codec)
+        }
+    }
 }

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package com.ttymonkey.deliverysimulation.proto;
+
+option java_multiple_files = true;
+
+message Order {
+  string id = 1;
+  string name = 2;
+  int32 prepTime = 3;
+  int64 orderTime = 4;
+}

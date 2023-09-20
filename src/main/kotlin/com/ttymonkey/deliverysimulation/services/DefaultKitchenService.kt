@@ -20,7 +20,7 @@ class DefaultKitchenService(
     internal val waitingCouriers = mutableListOf<Courier>()
 
     override suspend fun handleNewOrder(order: Order) {
-        log.info("Received order: $order")
+        log.info("Received order ${order.id}")
         outputPort.notifyOrderStartedPreparing(order)
         delay(order.prepTime.toLong() * 1000)
         outputPort.notifyOrderFinishedPreparing(order)
@@ -50,7 +50,7 @@ class DefaultKitchenService(
         val currentTime = System.currentTimeMillis()
         val foodWaitTime = currentTime - order.orderTime - (order.prepTime * 1000)
         val courierWaitTime = currentTime - courier.arrivalTime
-        log.info("Order Pickup Details: Order ID: ${order.id}, Food Wait Time: $foodWaitTime ms, Courier Wait Time: $courierWaitTime ms")
+        log.info("Order ${order.id} picked up! Food waited: $foodWaitTime ms, courier waited: $courierWaitTime ms")
         statistics.updateStatistics(foodWaitTime, courierWaitTime)
     }
 }

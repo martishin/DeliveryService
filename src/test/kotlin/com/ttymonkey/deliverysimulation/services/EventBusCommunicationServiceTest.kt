@@ -3,10 +3,10 @@ package com.ttymonkey.deliverysimulation.services
 import com.ttymonkey.deliverysimulation.EventBusAddresses
 import com.ttymonkey.deliverysimulation.models.domain.Courier
 import com.ttymonkey.deliverysimulation.models.domain.Order
+import com.ttymonkey.deliverysimulation.models.toProto
 import io.mockk.mockk
 import io.mockk.verify
 import io.vertx.core.Vertx
-import io.vertx.core.json.JsonObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -31,7 +31,7 @@ class EventBusCommunicationServiceTest {
 
         // then
         verify {
-            vertx.eventBus().publish(EventBusAddresses.COURIER_ARRIVAL, JsonObject.mapFrom(courier))
+            vertx.eventBus().publish(EventBusAddresses.COURIER_ARRIVAL, courier.toProto())
         }
     }
 
@@ -45,7 +45,7 @@ class EventBusCommunicationServiceTest {
 
         // then
         verify {
-            vertx.eventBus().publish(EventBusAddresses.NEW_ORDER, JsonObject.mapFrom(order))
+            vertx.eventBus().publish(EventBusAddresses.NEW_ORDER, order.toProto())
         }
     }
 
@@ -59,7 +59,7 @@ class EventBusCommunicationServiceTest {
 
         // then
         verify {
-            vertx.eventBus().publish(EventBusAddresses.STARTED_PREPARING_ORDER, JsonObject.mapFrom(order))
+            vertx.eventBus().publish(EventBusAddresses.STARTED_PREPARING_ORDER, order.toProto())
         }
     }
 
@@ -73,7 +73,7 @@ class EventBusCommunicationServiceTest {
 
         // then
         verify {
-            vertx.eventBus().publish(EventBusAddresses.ORDER_PREPARED, JsonObject.mapFrom(order))
+            vertx.eventBus().publish(EventBusAddresses.ORDER_PREPARED, order.toProto())
         }
     }
 }

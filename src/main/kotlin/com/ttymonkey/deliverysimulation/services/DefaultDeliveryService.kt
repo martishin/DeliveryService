@@ -14,7 +14,7 @@ class DefaultDeliveryService(private val outputPort: DeliveryOutputPort) : Deliv
     }
 
     override suspend fun handleNewOrder(order: Order) {
-        log.info("Dispatching a courier for order: $order.id")
+        log.info("Dispatching a courier for order ${order.id}")
 
         val dispatchTime = System.currentTimeMillis()
         val delay = Random.nextLong(3000, 15000)

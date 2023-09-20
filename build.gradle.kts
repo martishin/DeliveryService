@@ -5,6 +5,7 @@ plugins {
     application
     id("com.github.johnrengelman.shadow") version "7.1.2"
     jacoco
+    id("com.google.protobuf") version "0.9.4"
 }
 
 group = "com.ttymonkey"
@@ -32,9 +33,12 @@ dependencies {
     // DI
     implementation("io.insert-koin:koin-core:${property("koinVersion")}")
 
-    // Logging
+    // logging
     implementation("org.slf4j:slf4j-api:${property("slf4jVersion")}")
     implementation("ch.qos.logback:logback-classic:${property("logbackVersion")}")
+
+    // protobuf
+    implementation("com.google.protobuf:protobuf-kotlin:${property("protobufVersion")}")
 }
 
 val compileKotlin: KotlinCompile by tasks
@@ -56,4 +60,10 @@ tasks.shadowJar {
         attributes["Main-Class"] = "com.ttymonkey.deliverysimulation.Main"
     }
     mergeServiceFiles()
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:${property("protobufVersion")}"
+    }
 }

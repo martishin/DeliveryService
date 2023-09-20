@@ -2,13 +2,12 @@ package com.ttymonkey.deliverysimulation.verticles
 
 import com.ttymonkey.deliverysimulation.EventBusAddresses
 import com.ttymonkey.deliverysimulation.models.domain.Order
-import com.ttymonkey.deliverysimulation.models.dto.OrderDto
+import com.ttymonkey.deliverysimulation.models.toProto
 import com.ttymonkey.deliverysimulation.ports.delivery.DeliveryInputPort
 import io.mockk.*
 import io.vertx.core.Context
 import io.vertx.core.Handler
 import io.vertx.core.Vertx
-import io.vertx.core.json.JsonObject
 import io.vertx.junit5.VertxExtension
 import io.vertx.junit5.VertxTestContext
 import io.vertx.kotlin.coroutines.dispatcher
@@ -44,12 +43,12 @@ class DeliveryVerticleTest {
     fun `should handle new order when message is received on started_preparing_order address`(testContext: VertxTestContext) =
         runBlocking {
             // given
-            val orderDto = OrderDto(id = "1", name = "Burger", prepTime = 30, orderTime = 1624302745)
+            val order = Order(id = "1", name = "Burger", prepTime = 30, orderTime = 1624302745)
 
             // when
             launch(vertx.dispatcher()) {
                 deliveryVerticle.start()
-                vertx.eventBus().publish(EventBusAddresses.STARTED_PREPARING_ORDER, JsonObject.mapFrom(orderDto))
+                vertx.eventBus().publish(EventBusAddresses.STARTED_PREPARING_ORDER, order.toProto())
             }
 
             delay(1000)
