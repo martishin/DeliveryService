@@ -1,8 +1,7 @@
-package com.ttymonkey.deliverysimulation.services
+package com.ttymonkey.deliverysimulation.services.kitchen
 
 import com.ttymonkey.deliverysimulation.models.domain.Courier
 import com.ttymonkey.deliverysimulation.models.domain.Order
-import com.ttymonkey.deliverysimulation.ports.kitchen.KitchenInputPort
 import com.ttymonkey.deliverysimulation.ports.kitchen.KitchenOutputPort
 import com.ttymonkey.deliverysimulation.services.statistics.StatisticsService
 import kotlinx.coroutines.delay
@@ -11,7 +10,7 @@ import org.slf4j.LoggerFactory
 class DefaultKitchenService(
     private val outputPort: KitchenOutputPort,
     private val statistics: StatisticsService,
-) : KitchenInputPort {
+) : KitchenService {
     companion object {
         private val log = LoggerFactory.getLogger(DefaultKitchenService::class.java)
     }

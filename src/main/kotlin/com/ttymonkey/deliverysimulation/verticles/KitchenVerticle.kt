@@ -1,8 +1,8 @@
 package com.ttymonkey.deliverysimulation.verticles
 
-import com.ttymonkey.deliverysimulation.EventBusAddresses
 import com.ttymonkey.deliverysimulation.models.toDomain
 import com.ttymonkey.deliverysimulation.ports.kitchen.KitchenInputPort
+import com.ttymonkey.deliverysimulation.services.communication.EventBusAddresses
 import io.vertx.kotlin.coroutines.CoroutineVerticle
 import kotlinx.coroutines.launch
 import com.ttymonkey.deliverysimulation.proto.Courier as CourierProto

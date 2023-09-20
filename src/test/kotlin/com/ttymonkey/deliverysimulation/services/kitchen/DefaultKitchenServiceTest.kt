@@ -1,4 +1,4 @@
-package com.ttymonkey.deliverysimulation.services
+package com.ttymonkey.deliverysimulation.services.kitchen
 
 import com.ttymonkey.deliverysimulation.models.domain.Courier
 import com.ttymonkey.deliverysimulation.models.domain.Order

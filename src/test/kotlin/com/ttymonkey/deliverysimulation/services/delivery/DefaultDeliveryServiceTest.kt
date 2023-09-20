@@ -1,4 +1,4 @@
-package com.ttymonkey.deliverysimulation.services
+package com.ttymonkey.deliverysimulation.services.delivery
 
 import com.ttymonkey.deliverysimulation.models.domain.Order
 import com.ttymonkey.deliverysimulation.ports.delivery.DeliveryOutputPort

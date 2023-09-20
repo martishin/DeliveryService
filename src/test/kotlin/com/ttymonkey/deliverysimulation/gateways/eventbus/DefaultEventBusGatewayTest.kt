@@ -1,24 +1,24 @@
-package com.ttymonkey.deliverysimulation.services
+package com.ttymonkey.deliverysimulation.gateways.eventbus
 
-import com.ttymonkey.deliverysimulation.EventBusAddresses
 import com.ttymonkey.deliverysimulation.models.domain.Courier
 import com.ttymonkey.deliverysimulation.models.domain.Order
 import com.ttymonkey.deliverysimulation.models.toProto
+import com.ttymonkey.deliverysimulation.services.communication.EventBusAddresses
 import io.mockk.mockk
 import io.mockk.verify
 import io.vertx.core.Vertx
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class EventBusCommunicationServiceTest {
+class DefaultEventBusGatewayTest {
 
     private lateinit var vertx: Vertx
-    private lateinit var service: EventBusCommunicationService
+    private lateinit var gateway: DefaultEventBusGateway
 
     @BeforeEach
     fun setup() {
         vertx = mockk(relaxed = true)
-        service = EventBusCommunicationService(vertx)
+        gateway = DefaultEventBusGateway(vertx)
     }
 
     @Test
@@ -27,10 +27,10 @@ class EventBusCommunicationServiceTest {
         val courier = Courier(orderId = "1", dispatchTime = 1000L, arrivalTime = 2000L)
 
         // when
-        service.notifyCourierArrived(courier)
+        gateway.notify(EventBusAddresses.COURIER_ARRIVAL, courier.toProto())
 
         // then
-        verify {
+        verify(exactly = 1) {
             vertx.eventBus().publish(EventBusAddresses.COURIER_ARRIVAL, courier.toProto())
         }
     }
@@ -41,7 +41,7 @@ class EventBusCommunicationServiceTest {
         val order = Order(id = "1", name = "Burger", prepTime = 30, orderTime = 1624302745)
 
         // when
-        service.notifyOrderCreated(order)
+        gateway.notify(EventBusAddresses.NEW_ORDER, order.toProto())
 
         // then
         verify {
@@ -55,7 +55,7 @@ class EventBusCommunicationServiceTest {
         val order = Order(id = "1", name = "Burger", prepTime = 30, orderTime = 1624302745)
 
         // when
-        service.notifyOrderStartedPreparing(order)
+        gateway.notify(EventBusAddresses.STARTED_PREPARING_ORDER, order.toProto())
 
         // then
         verify {
@@ -69,7 +69,7 @@ class EventBusCommunicationServiceTest {
         val order = Order(id = "1", name = "Burger", prepTime = 30, orderTime = 1624302745)
 
         // when
-        service.notifyOrderFinishedPreparing(order)
+        gateway.notify(EventBusAddresses.ORDER_PREPARED, order.toProto())
 
         // then
         verify {

@@ -1,4 +1,4 @@
-package com.ttymonkey.deliverysimulation.services
+package com.ttymonkey.deliverysimulation.services.order
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.ttymonkey.deliverysimulation.models.dto.NewOrderDto

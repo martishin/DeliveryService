@@ -1,10 +1,9 @@
-package com.ttymonkey.deliverysimulation.services
+package com.ttymonkey.deliverysimulation.services.order
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.ttymonkey.deliverysimulation.models.domain.Order
 import com.ttymonkey.deliverysimulation.models.dto.NewOrderDto
-import com.ttymonkey.deliverysimulation.ports.order.OrderInputPort
 import com.ttymonkey.deliverysimulation.ports.order.OrderOutputPort
 import io.vertx.core.Vertx
 import io.vertx.kotlin.coroutines.await
@@ -15,7 +14,7 @@ import kotlinx.coroutines.flow.flow
 class DefaultOrderService(
     private val vertx: Vertx,
     private val outputPort: OrderOutputPort,
-) : OrderInputPort {
+) : OrderService {
     companion object {
         const val FILE_PATH = "src/main/resources/input/orders.json"
     }
