@@ -49,7 +49,7 @@ class DefaultKitchenService(
         val currentTime = System.currentTimeMillis()
         val foodWaitTime = currentTime - order.orderTime - (order.prepTime * 1000)
         val courierWaitTime = currentTime - courier.arrivalTime
-        log.info("Order ${order.id} picked up! Food waited: $foodWaitTime ms, courier waited: $courierWaitTime ms")
+        log.info("Order ${order.id} received! Food waited: $foodWaitTime ms, courier waited: $courierWaitTime ms")
         statistics.updateStatistics(foodWaitTime, courierWaitTime)
     }
 }

@@ -12,14 +12,14 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class KitchenServiceInputPortTest {
+class KitchenServiceInputAdapterTest {
     private lateinit var service: KitchenService
-    private lateinit var port: KitchenServiceInputPort
+    private lateinit var adapter: KitchenServiceInputAdapter
 
     @BeforeEach
     fun setup() {
         service = mockk(relaxed = true)
-        port = KitchenServiceInputPort(service)
+        adapter = KitchenServiceInputAdapter(service)
     }
 
     @Test
@@ -28,7 +28,7 @@ class KitchenServiceInputPortTest {
         val order = Order(id = "1", name = "Burger", prepTime = 30, orderTime = 1624302745)
 
         // when
-        port.handleNewOrder(order)
+        adapter.handleNewOrder(order)
 
         // then
         coVerify { service.handleNewOrder(order) }
@@ -40,7 +40,7 @@ class KitchenServiceInputPortTest {
         val courier = Courier(orderId = "1", dispatchTime = 1000L, arrivalTime = 2000L)
 
         // when
-        port.handleCourierArrival(courier)
+        adapter.handleCourierArrival(courier)
 
         // then
         verify { service.handleCourierArrival(courier) }
@@ -52,7 +52,7 @@ class KitchenServiceInputPortTest {
         val order = Order(id = "1", name = "Burger", prepTime = 30, orderTime = 1624302745)
 
         // when
-        port.handleOrderPrepared(order)
+        adapter.handleOrderPrepared(order)
 
         // then
         verify { service.handleOrderPrepared(order) }

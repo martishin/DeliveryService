@@ -1,11 +1,11 @@
 package com.ttymonkey.deliverysimulation.infrastructure
 
-import com.ttymonkey.deliverysimulation.adapters.delivery.DeliveryEventBusOutputPort
-import com.ttymonkey.deliverysimulation.adapters.delivery.DeliveryServiceInputPort
-import com.ttymonkey.deliverysimulation.adapters.kitchen.KitchenEventBusOutputPort
-import com.ttymonkey.deliverysimulation.adapters.kitchen.KitchenServiceInputPort
-import com.ttymonkey.deliverysimulation.adapters.order.OrderEventBusOutputPort
-import com.ttymonkey.deliverysimulation.adapters.order.OrderServiceInputPort
+import com.ttymonkey.deliverysimulation.adapters.delivery.DeliveryEventBusOutputAdapter
+import com.ttymonkey.deliverysimulation.adapters.delivery.DeliveryServiceInputAdapter
+import com.ttymonkey.deliverysimulation.adapters.kitchen.KitchenEventBusOutputAdapter
+import com.ttymonkey.deliverysimulation.adapters.kitchen.KitchenServiceInputAdapter
+import com.ttymonkey.deliverysimulation.adapters.order.OrderEventBusOutputAdapter
+import com.ttymonkey.deliverysimulation.adapters.order.OrderServiceInputAdapter
 import com.ttymonkey.deliverysimulation.gateways.eventbus.DefaultEventBusGateway
 import com.ttymonkey.deliverysimulation.gateways.eventbus.EventBusGateway
 import com.ttymonkey.deliverysimulation.ports.codecs.ProtoCodec
@@ -41,18 +41,18 @@ val appModule = module {
     single<EventBusGateway> { DefaultEventBusGateway(get()) }
     single<EventBusService> { DefaultEventBusService(get()) }
 
-    single<OrderInputPort> { OrderServiceInputPort(get()) }
-    single<OrderOutputPort> { OrderEventBusOutputPort(get()) }
+    single<OrderInputPort> { OrderServiceInputAdapter(get()) }
+    single<OrderOutputPort> { OrderEventBusOutputAdapter(get()) }
     single<OrderService> { DefaultOrderService(get(), get()) }
     single { OrderVerticle(get()) }
 
-    single<KitchenInputPort> { KitchenServiceInputPort(get()) }
-    single<KitchenOutputPort> { KitchenEventBusOutputPort(get()) }
+    single<KitchenInputPort> { KitchenServiceInputAdapter(get()) }
+    single<KitchenOutputPort> { KitchenEventBusOutputAdapter(get()) }
     single<KitchenService> { DefaultKitchenService(get(), get()) }
     single { KitchenVerticle(get()) }
 
-    single<DeliveryInputPort> { DeliveryServiceInputPort(get()) }
-    single<DeliveryOutputPort> { DeliveryEventBusOutputPort(get()) }
+    single<DeliveryInputPort> { DeliveryServiceInputAdapter(get()) }
+    single<DeliveryOutputPort> { DeliveryEventBusOutputAdapter(get()) }
     single<DeliveryService> { DefaultDeliveryService(get()) }
     single { DeliveryVerticle(get()) }
 

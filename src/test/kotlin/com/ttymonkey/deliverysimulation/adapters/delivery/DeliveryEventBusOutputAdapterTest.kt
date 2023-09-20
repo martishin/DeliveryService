@@ -7,14 +7,14 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class DeliveryEventBusOutputPortTest {
+class DeliveryEventBusOutputAdapterTest {
     private lateinit var eventBus: EventBusService
-    private lateinit var port: DeliveryEventBusOutputPort
+    private lateinit var adapter: DeliveryEventBusOutputAdapter
 
     @BeforeEach
     fun setup() {
         eventBus = mockk(relaxed = true)
-        port = DeliveryEventBusOutputPort(eventBus)
+        adapter = DeliveryEventBusOutputAdapter(eventBus)
     }
 
     @Test
@@ -23,7 +23,7 @@ class DeliveryEventBusOutputPortTest {
         val courier = Courier(orderId = "1", dispatchTime = 1000L, arrivalTime = 2000L)
 
         // when
-        port.notifyCourierArrived(courier)
+        adapter.notifyCourierArrived(courier)
 
         // then
         verify { eventBus.notifyCourierArrived(courier) }

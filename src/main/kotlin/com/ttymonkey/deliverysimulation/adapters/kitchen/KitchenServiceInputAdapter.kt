@@ -5,7 +5,7 @@ import com.ttymonkey.deliverysimulation.models.domain.Order
 import com.ttymonkey.deliverysimulation.ports.kitchen.KitchenInputPort
 import com.ttymonkey.deliverysimulation.services.kitchen.KitchenService
 
-class KitchenServiceInputPort(private val kitchenService: KitchenService) : KitchenInputPort {
+class KitchenServiceInputAdapter(private val kitchenService: KitchenService) : KitchenInputPort {
     override suspend fun handleNewOrder(order: Order) {
         kitchenService.handleNewOrder(order)
     }

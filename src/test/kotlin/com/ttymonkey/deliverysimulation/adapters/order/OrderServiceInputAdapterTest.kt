@@ -9,20 +9,20 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class OrderServiceInputPortTest {
+class OrderServiceInputAdapterTest {
     private lateinit var service: OrderService
-    private lateinit var port: OrderServiceInputPort
+    private lateinit var adapter: OrderServiceInputAdapter
 
     @BeforeEach
     fun setup() {
         service = mockk(relaxed = true)
-        port = OrderServiceInputPort(service)
+        adapter = OrderServiceInputAdapter(service)
     }
 
     @Test
     fun `should process new orders when processOrders is called`() = runTest {
         // given / when
-        port.processOrders()
+        adapter.processOrders()
 
         // then
         coVerify { service.processOrders() }

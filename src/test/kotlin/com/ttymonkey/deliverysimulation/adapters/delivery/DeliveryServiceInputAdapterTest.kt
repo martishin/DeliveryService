@@ -10,14 +10,14 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class DeliveryServiceInputPortTest {
+class DeliveryServiceInputAdapterTest {
     private lateinit var service: DeliveryService
-    private lateinit var port: DeliveryServiceInputPort
+    private lateinit var adapter: DeliveryServiceInputAdapter
 
     @BeforeEach
     fun setup() {
         service = mockk(relaxed = true)
-        port = DeliveryServiceInputPort(service)
+        adapter = DeliveryServiceInputAdapter(service)
     }
 
     @Test
@@ -26,7 +26,7 @@ class DeliveryServiceInputPortTest {
         val order = Order(id = "1", name = "Burger", prepTime = 30, orderTime = 1624302745)
 
         // when
-        port.handleNewOrder(order)
+        adapter.handleNewOrder(order)
 
         // then
         coVerify { service.handleNewOrder(order) }
