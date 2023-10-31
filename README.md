@@ -6,7 +6,7 @@ Service for modeling delivery service operations, built using:
 * Protocol Buffers - serialization protocol
 * Docker - containerization
 
-This project utilizes Hexagonal Architecture (Ports and Adapters) and has 80+% test coverage.
+This project utilizes Hexagonal Architecture (Ports and Adapters) and has 80%+ test coverage.
 
 To run the project:  
 `./gradlew run`
